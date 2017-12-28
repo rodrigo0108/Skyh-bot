@@ -23,12 +23,12 @@ namespace bot_ej.Models
     [Serializable]
     public class ReservaHabitaciones
     {
-        public TamanoCamaOpciones? TamañoDeCama;
-        public int? NumeroDeOcupantes;
+        //[Template(TemplateUsage.EnumSelectOne, "¿Que tipo de {&} le conevendría? {||}", ChoiceStyle = ChoiceStyleOptions.PerLine)]
+        public TamanoCamaOpciones? Tamañodecama;
+        public int? NúmeroDeOcupantes;
         public DateTime? FechaDeLlegada;
-        public int? NumeroDeDiasDeEstadia;
+        public int? NúmeroDeDíasDeEstadía;
         public List<ServicioOpciones> Servicios;
-
         public static IForm<ReservaHabitaciones> ConstruirForma()
         {
             return new FormBuilder<ReservaHabitaciones>()

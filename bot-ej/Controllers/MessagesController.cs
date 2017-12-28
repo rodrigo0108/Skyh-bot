@@ -1,8 +1,10 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using bot_ej.Dialogs;
+using bot_ej.Models;
 using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Connector;
 
@@ -19,7 +21,7 @@ namespace bot_ej
         {
             if (activity.Type == ActivityTypes.Message)
             {
-                await Conversation.SendAsync(activity, () => HotelBotDialog.dialog);
+                await Conversation.SendAsync(activity, CrearDialogoLuis);
             }
             else
             {
@@ -27,6 +29,11 @@ namespace bot_ej
             }
             var response = Request.CreateResponse(HttpStatusCode.OK);
             return response;
+        }
+
+        private IDialog<ReservaHabitaciones> CrearDialogoLuis()
+        {
+            return Chain.From(() => new LUISDialog(ReservaHabitaciones.ConstruirForma));
         }
 
         private Activity HandleSystemMessage(Activity message)

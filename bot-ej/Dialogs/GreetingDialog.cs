@@ -17,6 +17,7 @@ namespace bot_ej.Dialogs
             await Respond(context);
 
             context.Wait(MessageRecievedAsync);
+            
         }
 
         private static async Task Respond(IDialogContext context)

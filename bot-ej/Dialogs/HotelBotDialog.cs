@@ -15,10 +15,6 @@ namespace bot_ej.Dialogs
         public static readonly IDialog<string> dialog = Chain.PostToChain()
             .Select(msg => msg.Text)
             .Switch(
-            new RegexCase<IDialog<string>>(new Regex("^hola", RegexOptions.IgnoreCase), (context, text) =>
-              {
-                  return Chain.ContinueWith(new GreetingDialog(), AfterGreetingContinuation);
-              }),
             new DefaultCase<string, IDialog<string>>((context, text) =>
              {
                  return Chain.ContinueWith(FormDialog.FromForm(ReservaHabitaciones.ConstruirForma, FormOptions.PromptInStart), AfterGreetingContinuation);
@@ -32,8 +28,7 @@ namespace bot_ej.Dialogs
             var name = "Usuario";
             context.UserData.TryGetValue<string>("Nombre", out name);
             return Chain.Return($"Gracias por usar el hotel bot: {name}");
-
-
+            
         }
     }
 }
