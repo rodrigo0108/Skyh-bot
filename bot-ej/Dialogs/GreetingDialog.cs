@@ -15,7 +15,18 @@ namespace bot_ej.Dialogs
         {
             await context.PostAsync("Hola soy El Bot! ");
             await Respond(context);
-            context.Wait(MessageRecievedAsync);
+
+            var userName = String.Empty;
+            context.UserData.TryGetValue<string>("Nombre", out userName);
+            if (string.IsNullOrEmpty(userName))
+            {
+                context.Wait(MessageRecievedAsync);
+            }
+            else
+            {
+                context.Done(userName);
+            }
+            
          
         }
 
