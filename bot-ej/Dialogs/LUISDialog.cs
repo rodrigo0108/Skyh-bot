@@ -29,10 +29,8 @@ namespace bot_ej.Dialogs
         }
 
         [LuisIntent("Saludo")]
-        public async Task Saludo(IDialogContext context, LuisResult result)
-        {
-            context.Call(new GreetingDialog(),Callback);
-        }
+        public async Task Saludo(IDialogContext context, LuisResult result)=>context.Call(new GreetingDialog(),Callback);
+        
 
         private async Task Callback(IDialogContext context, IAwaitable<object> result)
         {
@@ -44,6 +42,8 @@ namespace bot_ej.Dialogs
         {
             var formularioRegistro = new FormDialog<ReservaHabitaciones>(new ReservaHabitaciones(), this.ReservacionCuarto, FormOptions.PromptInStart);
             context.Call<ReservaHabitaciones>(formularioRegistro, Callback);
+            
+
         }
         [LuisIntent("Consulta.Servicios")]
         public async Task ConsultaServicios(IDialogContext context, LuisResult result)

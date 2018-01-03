@@ -28,7 +28,7 @@ namespace bot_ej.Dialogs
             var name = "Usuario";
             context.UserData.TryGetValue<string>("Nombre", out name);
             return Chain.Return($"Gracias por usar el hotel bot: {name}");
-            
         }
     }
+
 }

@@ -15,9 +15,8 @@ namespace bot_ej.Dialogs
         {
             await context.PostAsync("Hola soy El Bot! ");
             await Respond(context);
-
             context.Wait(MessageRecievedAsync);
-            
+         
         }
 
         private static async Task Respond(IDialogContext context)

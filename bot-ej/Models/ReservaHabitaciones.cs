@@ -1,4 +1,5 @@
-﻿using Microsoft.Bot.Builder.FormFlow;
+﻿using Microsoft.Bot.Builder.Dialogs;
+using Microsoft.Bot.Builder.FormFlow;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,11 +21,14 @@ namespace bot_ej.Models
         AccesoGimnasio,
         Wifi
     }
+
+    
     [Serializable]
     public class ReservaHabitaciones
     {
+      
         //[Template(TemplateUsage.EnumSelectOne, "¿Que tipo de {&} le conevendría? {||}", ChoiceStyle = ChoiceStyleOptions.PerLine)]
-        public TamanoCamaOpciones? Tamañodecama;
+        public TamanoCamaOpciones? TamanoDeCama;
         public int? NúmeroDeOcupantes;
         public DateTime? FechaDeLlegada;
         public int? NúmeroDeDíasDeEstadía;
@@ -32,8 +36,19 @@ namespace bot_ej.Models
         public static IForm<ReservaHabitaciones> ConstruirForma()
         {
             return new FormBuilder<ReservaHabitaciones>()
-                .Message("Bienvenido al servicio de reservacion de hoteles!")
+                .Message("Bienvenido al servicio de reservacion de hoteles!").OnCompletion(async (context, order) =>
+                {
+                    var name = "Usuario";
+                    var tamanoCama = "asd";
+                    context.UserData.TryGetValue<string>("Nombre", out name);
+                    context.PrivateConversationData.SetValue<string>(
+                        "tamanoCama", order.TamanoDeCama.ToString());
+                    context.PrivateConversationData.TryGetValue<string>("tamanoCama", out tamanoCama);
+                    
+                    await context.PostAsync($"Gracias por usar el hotel bot: {name} y su tamaño de cama es: {tamanoCama} ");
+                })
                 .Build();
         }
     }
+
 }
